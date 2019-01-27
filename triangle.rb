@@ -14,7 +14,8 @@
 #   about_triangle_project_2.rb
 #
 def triangle(a, b, c)
-  raise TriangleError unless valid_triangle(a, b, c)
+  a, b, c = [a, b, c].sort
+  raise TriangleError unless a > 0 && a + b > c
 
   if a == b && b == c
     :equilateral
@@ -23,21 +24,6 @@ def triangle(a, b, c)
   else
     :scalene
   end
-end
-
-def valid_triangle(a, b, c)
-  positive_sides(a, b, c) && sides_can_reach(a, b, c)
-end
-
-def positive_sides(a, b, c)
-  [a, b, c].min >= 0
-end
-
-def sides_can_reach(a, b, c)
-  sides = [a, b, c]
-  max = sides.max
-  sides.slice!(sides.index(max)) # cannot use sides.delete because it removes all matches
-  sides.sum > max
 end
 
 # Error class used in part 2.  No need to change this code.
